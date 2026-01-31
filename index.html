@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Path of Ascension Tree Bot</title>
+    
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <script src="https://tganalytics.xyz/index.js"></script>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -118,29 +122,33 @@
     </div>
 
     <script>
+        // --- 1. INISIALISASI ANALYTICS ---
+        // Kode ini wajib ada agar Bot Pendaftaran bisa memverifikasi aplikasi Anda
+        window.telegramAnalytics.init({
+            token: 'eyJhcHBfbmFtZSI6InBhdGhfb2ZfYXNjZW5zaW9uX3RyZWUiLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL1BhdGhvZkFzY2Vuc2lvblRyZWVib3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9nb3JuZXZlcndoYXQuZ2l0aHViLmlvL0tSQUtLU1NLLyJ9!j0gWAykcz0aUwLRA1FBcap/EDin7NCNIV3/MI/CVDr0=',
+            appName: 'Path of Ascension Tree'
+        });
+
+        // --- 2. INISIALISASI MINI APP ---
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand(); 
 
         function startGame() {
-            // 1. Efek Getar
+            // Efek Getar
             tg.HapticFeedback.impactOccurred('heavy');
 
-            // 2. Kirim Data (Utama)
-            // Ini untuk user yang membuka via Tombol Menu di keyboard
+            // Kirim Data ke Bot Python
             tg.sendData("open_menu"); 
             
-            // 3. FORCE OPEN CHAT (Solusi Masalah Anda)
-            // Kita tambahkan parameter '?start=menu'
-            // Ini memaksa Telegram membuka chat DAN mengirim perintah /start menu secara otomatis
+            // Paksa buka chat (Deep Linking)
             tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
             
-            // 4. Tutup Web App (Dengan sedikit delay agar link sempat diproses)
+            // Tutup Web App
             setTimeout(() => {
                 tg.close();
-            }, 3000); // Delay 300ms
+            }, 300);
         }
     </script>
 </body>
 </html>
-
