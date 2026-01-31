@@ -18,7 +18,7 @@
             margin: 0;
             padding: 20px;
             text-align: center;
-            user-select: none; /* Mencegah seleksi teks */
+            user-select: none;
         }
 
         .container {
@@ -31,7 +31,6 @@
             height: 120px;
             margin-bottom: 20px;
             border-radius: 20px;
-            /* Background dihapus karena gambar sudah menutup */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -72,7 +71,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px; /* Jarak antara ikon dan teks */
+            gap: 10px;
         }
 
         .btn-start:active {
@@ -81,7 +80,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Animasi Loading */
         .fade-in {
             animation: fadeIn 0.8s ease-out;
         }
@@ -91,7 +89,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Gambar agar responsif dan tidak gepeng */
         .logo img {
             width: 100%;
             height: 100%;
@@ -121,36 +118,24 @@
     </div>
 
     <script>
-        // Inisialisasi Telegram Web App
         const tg = window.Telegram.WebApp;
-
-        // Beritahu Telegram bahwa aplikasi siap
         tg.ready();
-        
-        // Membuka penuh layar
         tg.expand(); 
 
-        // Fungsi Tombol Start
         function startGame() {
-            // 1. Efek Getar (Haptic Feedback) agar terasa responsif
+            // 1. Efek Getar
             tg.HapticFeedback.impactOccurred('heavy');
 
-            // 2. Kirim data "open_menu" ke Bot Python.
-            // Python akan menangkap ini lewat 'web_app_data_handler' dan mengirim Menu Utama.
-            // sendData() secara otomatis akan menutup Web App view setelah data terkirim.
+            // 2. Kirim data ke Bot Python (agar bot membalas Menu Utama)
             tg.sendData("open_menu"); 
             
-            // [OPTIONAL] Force close sebagai fallback jika sendData tidak langsung menutup
-            setTimeout(() => {
-                tg.close();
-            }, 100);
+            // 3. [DITAMBAHKAN] Arahkan user kembali ke Chat Bot secara paksa
+            // Ini berguna jika sendData tidak otomatis menutup window di beberapa device
+            tg.openTelegramLink("https://t.me/PathofAscensionTreebot");
+            
+            // 4. Tutup Web App
+            tg.close(); 
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
