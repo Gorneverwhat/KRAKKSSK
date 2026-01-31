@@ -101,15 +101,11 @@
         tg.expand(); 
 
         function startGame() {
-            // 1. Efek Getar
             tg.HapticFeedback.impactOccurred('heavy');
-
-            // 2. Kirim Data ke Bot (Handler 'web_app_data_handler' di Python akan menangkap ini)
             tg.sendData("open_menu"); 
-            
-            // 3. [PENTING] Tutup Web App agar user kembali ke chat room
             tg.close(); 
         }
     </script>
 </body>
 </html>
+
