@@ -126,15 +126,19 @@
             // 1. Efek Getar
             tg.HapticFeedback.impactOccurred('heavy');
 
-            // 2. Kirim data ke Bot Python (agar bot membalas Menu Utama)
+            // 2. Kirim Data (Utama)
+            // Ini untuk user yang membuka via Tombol Menu di keyboard
             tg.sendData("open_menu"); 
             
-            // 3. [DITAMBAHKAN] Arahkan user kembali ke Chat Bot secara paksa
-            // Ini berguna jika sendData tidak otomatis menutup window di beberapa device
-            tg.openTelegramLink("https://t.me/PathofAscensionTreebot");
+            // 3. FORCE OPEN CHAT (Solusi Masalah Anda)
+            // Kita tambahkan parameter '?start=menu'
+            // Ini memaksa Telegram membuka chat DAN mengirim perintah /start menu secara otomatis
+            tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
             
-            // 4. Tutup Web App
-            tg.close(); 
+            // 4. Tutup Web App (Dengan sedikit delay agar link sempat diproses)
+            setTimeout(() => {
+                tg.close();
+            }, 300); // Delay 300ms
         }
     </script>
 </body>
