@@ -18,6 +18,7 @@
             margin: 0;
             padding: 20px;
             text-align: center;
+            user-select: none; /* Mencegah seleksi teks */
         }
 
         .container {
@@ -30,25 +31,30 @@
             height: 120px;
             margin-bottom: 20px;
             border-radius: 20px;
-            background: linear-gradient(135deg, #f39c12, #c0392b);
+            /* Background dihapus karena gambar sudah menutup */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 50px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            overflow: hidden; 
+            padding: 0;
         }
 
         h1 {
             font-size: 24px;
             margin-bottom: 10px;
             font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         p {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--tg-theme-hint-color, #aaaaaa);
             margin-bottom: 40px;
-            line-height: 1.5;
+            line-height: 1.6;
+            padding: 0 10px;
         }
 
         .btn-start {
@@ -61,22 +67,35 @@
             border-radius: 12px;
             cursor: pointer;
             width: 100%;
-            transition: transform 0.1s, opacity 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.1s, opacity 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Jarak antara ikon dan teks */
         }
 
         .btn-start:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
             opacity: 0.9;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
+        /* Animasi Loading */
         .fade-in {
-            animation: fadeIn 1s ease-in;
+            animation: fadeIn 0.8s ease-out;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Gambar agar responsif dan tidak gepeng */
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -84,30 +103,52 @@
 
     <div class="container">
         <center>
-            <div class="logo" style="padding: 0; overflow: hidden; background: none;">
-    <img src="https://raw.githubusercontent.com/Gorneverwhat/_KRRAAKKK/refs/heads/main/icon.png"
-    alt="Logo Bot" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/Gorneverwhat/_KRRAAKKK/refs/heads/main/icon.png" alt="Logo Bot">
+            </div>
         </center>
 
-        <h1>PATH OF ASCENSION TREE</h1>
-        <p>PREPARE FOR ASCENSION ...!!!<br>ENCHANT YOUR LEGENDARY WEAPON, FIGHT THE BOSS AND BE THE STRONGEST </p>
-        <button class="btn-start" onclick="startGame()">🌳START ASCENSION<button>
+        <h1>Path of Ascension Tree</h1>
+        <p>
+            PREPARE FOR ASCENSION...!!!<br>
+            ENCHANT YOUR LEGENDARY WEAPON,<br>
+            FIGHT THE BOSS AND BE THE STRONGEST
+        </p>
+
+        <button class="btn-start" onclick="startGame()">
+            <span>🌳</span> START ASCENSION
+        </button>
     </div>
 
     <script>
+        // Inisialisasi Telegram Web App
         const tg = window.Telegram.WebApp;
+
+        // Beritahu Telegram bahwa aplikasi siap
         tg.ready();
+        
+        // Membuka penuh layar
         tg.expand(); 
 
+        // Fungsi Tombol Start
         function startGame() {
+            // 1. Efek Getar (Haptic Feedback) agar terasa responsif
             tg.HapticFeedback.impactOccurred('heavy');
+
+            // 2. Kirim data "open_menu" ke Bot Python.
+            // Python akan menangkap ini lewat 'web_app_data_handler' dan mengirim Menu Utama.
+            // sendData() secara otomatis akan menutup Web App view setelah data terkirim.
             tg.sendData("open_menu"); 
-            tg.openTelegramLink("https://t.me/PathofAscensionTreebot/"); 
+            
+            // [OPTIONAL] Force close sebagai fallback jika sendData tidak langsung menutup
+            setTimeout(() => {
+                tg.close();
+            }, 100);
         }
     </script>
 </body>
 </html>
+
 
 
 
