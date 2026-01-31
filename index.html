@@ -122,8 +122,8 @@
     </div>
 
     <script>
-        // --- 1. INISIALISASI ANALYTICS ---
-        // Kode ini wajib ada agar Bot Pendaftaran bisa memverifikasi aplikasi Anda
+        // --- 1. [WAJIB] INISIALISASI ANALYTICS ---
+        // Token ini harus dipasang agar Bot Pendaftaran bisa memverifikasi
         window.telegramAnalytics.init({
             token: 'eyJhcHBfbmFtZSI6InBhdGhfb2ZfYXNjZW5zaW9uX3RyZWUiLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL1BhdGhvZkFzY2Vuc2lvblRyZWVib3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9nb3JuZXZlcndoYXQuZ2l0aHViLmlvL0tSQUtLU1NLLyJ9!j0gWAykcz0aUwLRA1FBcap/EDin7NCNIV3/MI/CVDr0=',
             appName: 'Path of Ascension Tree'
@@ -141,7 +141,7 @@
             // Kirim Data ke Bot Python
             tg.sendData("open_menu"); 
             
-            // Paksa buka chat (Deep Linking)
+            // Paksa buka chat (Deep Linking agar bot merespon)
             tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
             
             // Tutup Web App
