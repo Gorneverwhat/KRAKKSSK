@@ -127,28 +127,46 @@
     </div>
 
     <script>
-        window.telegramAnalytics.init({
-            token: 'eyJhcHBfbmFtZSI6InBhdGhfb2ZfYXNjZW5zaW9uX3RyZWUiLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL1BhdGhvZkFzY2Vuc2lvblRyZWVib3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9nb3JuZXZlcndoYXQuZ2l0aHViLmlvL0tSQUtLU1NLLyJ9!j0gWAykcz0aUwLRA1FBcap/EDin7NCNIV3/MI/CVDr0=',
-            appName: 'PathofAscensionTreebotbot'
-        });
+        // --- 1. SETUP GLOBAL ---
+        // Kita deklarasikan 'tg' di luar agar aman diakses semua fungsi
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand(); 
+        tg.expand();
 
-        function startGame() {
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('heavy');
+        // --- 2. FUNGSI ANALYTICS (ANTI-CRASH) ---
+        // Fungsi ini HANYA akan jalan dipanggil oleh browser setelah script analytics selesai download
+        window.initAnalytics = function() {
+            if (window.telegramAnalytics) {
+                window.telegramAnalytics.init({
+                    token: 'eyJhcHBfbmFtZSI6InBhdGhfb2ZfYXNjZW5zaW9uX3RyZWUiLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL1BhdGhvZkFzY2Vuc2lvblRyZWVib3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9nb3JuZXZlcndoYXQuZ2l0aHViLmlvL0tSQUtLU1NLLyJ9!j0gWAykcz0aUwLRA1FBcap/EDin7NCNIV3/MI/CVDr0=',
+                    appName: 'path_of_ascension_tree'
+                });
             }
+        };
+
+        // --- 3. FUNGSI TOMBOL START ---
+        function startGame() {
+            // A. Efek Getar (Gunakan try-catch agar aman di semua device)
+            try {
+                if (tg.HapticFeedback) {
+                    tg.HapticFeedback.impactOccurred('heavy');
+                }
+            } catch (e) {
+                console.log("Haptic not supported");
+            }
+
+            // B. NAVIGASI
             const botUsername = "PathofAscensionTreebot"; 
+            
+            // Perintahkan Telegram pindah ke Chat Bot
             tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
             
+            // C. PAKSA TUTUP MINI APP
+            // Beri jeda 150ms agar perintah link terkirim dulu sebelum ditutup
             setTimeout(() => {
                 tg.close();
-            }, 100);
+            }, 150);
         }
     </script>
+</body>
 </html>
-
-
-
-
