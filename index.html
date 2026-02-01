@@ -7,14 +7,13 @@
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
-<script> 
-    async 
-    src="https://tganalytics.xyz/index.js" 
-    onload="initAnalytics()" 
-    type="text/javascript"
-</script>
+    <script 
+        async 
+        src="https://tganalytics.xyz/index.js" 
+        onload="initAnalytics()" 
+        type="text/javascript">
+    </script>
         
-    
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -48,6 +47,8 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             overflow: hidden; 
             padding: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         h1 {
@@ -109,11 +110,9 @@
 <body class="fade-in">
 
     <div class="container">
-        <center>
-            <div class="logo">
-                <img src="https://raw.githubusercontent.com/Gorneverwhat/_KRRAAKKK/refs/heads/main/icon.png" alt="Logo Bot">
-            </div>
-        </center>
+        <div class="logo">
+            <img src="https://raw.githubusercontent.com/Gorneverwhat/_KRRAAKKK/refs/heads/main/icon.png" alt="Logo Bot">
+        </div>
 
         <h1>Path of Ascension Tree</h1>
         <p>
@@ -128,27 +127,35 @@
     </div>
 
     <script>
-        // --- PERBAIKAN DI SINI ---
-        // App Name disamakan persis dengan data di dalam token
+        // 1. Inisialisasi Analytics (Sesuai kode asli Anda)
         window.telegramAnalytics.init({
             token: 'eyJhcHBfbmFtZSI6InBhdGhfb2ZfYXNjZW5zaW9uX3RyZWUiLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL1BhdGhvZkFzY2Vuc2lvblRyZWVib3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9nb3JuZXZlcndoYXQuZ2l0aHViLmlvL0tSQUtLU1NLLyJ9!j0gWAykcz0aUwLRA1FBcap/EDin7NCNIV3/MI/CVDr0=',
             appName: 'path_of_ascension_tree'
         });
 
+        // 2. Inisialisasi Telegram WebApp
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand(); 
 
+        // Fungsi Tombol Start
         function startGame() {
-            tg.HapticFeedback.impactOccurred('heavy'); 
+            // A. Efek Getar (Cek support dulu agar tidak error di desktop lama)
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('heavy');
+            }
+
+            // B. NAVIGASI UTAMA (Deep Link)
+            // Fungsi ini akan otomatis:
+            // 1. Menutup Mini App
+            // 2. Membuka Chat Bot
+            // 3. Mengirim sinyal '/start menu' ke bot
             tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
             
+            // CATATAN PENTING:
+            // Jangan tambahkan tg.close() atau tg.sendData() di sini.
+            // Biarkan openTelegramLink menangani proses penutupan app.
         }
     </script>
 </body>
 </html>
-
-
-
-
-
