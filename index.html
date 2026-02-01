@@ -140,23 +140,19 @@
 
         // Fungsi Tombol Start
         function startGame() {
-            // A. Efek Getar (Cek support dulu agar tidak error di desktop lama)
+            // A. Efek Getar
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('heavy');
             }
 
-            // B. NAVIGASI UTAMA (Deep Link)
-            // Fungsi ini akan otomatis:
-            // 1. Menutup Mini App
-            // 2. Membuka Chat Bot
-            // 3. Mengirim sinyal '/start menu' ke bot
-            tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
+            // B. NAVIGASI & TUTUP
+            // Pastikan username bot BENAR. Besar kecil huruf berpengaruh!
+            // Ganti 'PathofAscensionTreebot' jika username bot Anda berbeda.
+            const botUsername = "PathofAscensionTreebot"; 
             
-            // CATATAN PENTING:
-            // Jangan tambahkan tg.close() atau tg.sendData() di sini.
-            // Biarkan openTelegramLink menangani proses penutupan app.
+            // 1. Perintahkan Telegram untuk membuka chat dengan parameter start
+            tg.openTelegramLink("https://t.me/" + botUsername + "?start=menu")
         }
     </script>
-</body>
 </html>
 
