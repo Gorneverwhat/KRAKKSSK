@@ -6,7 +6,7 @@
     <title>Path of Ascension Tree Bot</title>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
+    
     <script>
         window.initAnalytics = function() {
             if (window.telegramAnalytics) {
@@ -22,7 +22,7 @@
     <script 
         async 
         src="https://tganalytics.xyz/index.js" 
-        onload="initAnalytics()" 
+        onload="window.initAnalytics()" 
         type="text/javascript">
     </script>
         
@@ -139,18 +139,14 @@
     </div>
 
     <script>
-        // --- 1. SETUP GLOBAL ---
-        // Kita deklarasikan 'tg' di luar agar aman diakses semua fungsi
+        // --- 4. SETUP UTAMA TELEGRAM ---
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand();
+        tg.expand(); 
 
-        // --- 2. FUNGSI ANALYTICS (ANTI-CRASH) ---
-        // Fungsi ini HANYA akan jalan dipanggil oleh browser setelah script analytics selesai download
-        
-        // --- 3. FUNGSI TOMBOL START ---
+        // --- 5. FUNGSI TOMBOL START ---
         function startGame() {
-            // A. Efek Getar (Gunakan try-catch agar aman di semua device)
+            // A. Efek Getar
             try {
                 if (tg.HapticFeedback) {
                     tg.HapticFeedback.impactOccurred('heavy');
@@ -160,13 +156,13 @@
             }
 
             // B. NAVIGASI
+            // Pastikan username bot BENAR (tanpa @)
             const botUsername = "PathofAscensionTreebot"; 
             
             // Perintahkan Telegram pindah ke Chat Bot
-            tg.openTelegramLink("https://t.me/PathofAscensionTreebot?start=menu");
+            tg.openTelegramLink("https://t.me/" + botUsername + "?start=menu");
             
             // C. PAKSA TUTUP MINI APP
-            // Beri jeda 150ms agar perintah link terkirim dulu sebelum ditutup
             setTimeout(() => {
                 tg.close();
             }, 150);
